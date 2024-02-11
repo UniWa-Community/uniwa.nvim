@@ -61,7 +61,7 @@ local base_1      = uniwa_blue.li(20)
 local blue        = base_1
 local magenta     = base_1.ro(50)
 local red         = base_1.ro(120)
-local crimson         = base_1.ro(120).li(20)
+local crimson     = base_1.ro(120).li(20)
 local brown       = base_1.ro(160)
 local tropic      = base_1.ro(240)
 local turquoise   = base_1.ro(300)
@@ -85,6 +85,8 @@ local theme = lush(function(injected_functions)
     local sym = injected_functions.sym
     return {
         the_foreground { fg = foreground, bg = foreground },
+        the_background { fg = background, bg = background },
+        the_grey { fg = grey, bg = grey },
 
         the_blue { fg = blue, bg = blue },
         the_magenta { fg = magenta, bg = magenta },
@@ -94,11 +96,11 @@ local theme = lush(function(injected_functions)
         the_tropic { fg = tropic, bg = tropic },
         the_turquoise { fg = turquoise, bg = turquoise },
 
-        the_lightblue { fg = azure, bg = azure },
-        the_violet { fg = lilac, bg = lilac },
-        the_pink { fg = salmon, bg = salmon },
-        theorange { fg = orange, bg = orange },
-        theyellow { fg = yellow, bg = yellow },
+        the_azure { fg = azure, bg = azure },
+        the_lilac { fg = lilac, bg = lilac },
+        the_salmon { fg = salmon, bg = salmon },
+        the_orange { fg = orange, bg = orange },
+        the_yellow { fg = yellow, bg = yellow },
         the_green { fg = green, bg = green },
         the_teal { fg = teal, bg = teal },
         the_cyan { fg = cyan, bg = cyan },
@@ -121,7 +123,7 @@ local theme = lush(function(injected_functions)
         -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
         CursorLine { bg = background.li(5) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
         -- Directory      { }, -- Directory names (and other special names in listings)
-        DiffAdd { fg = green },              -- Diff mode: Added line |diff.txt|
+        DiffAdd { fg = green },               -- Diff mode: Added line |diff.txt|
         DiffChange { fg = cyan },             -- Diff mode: Changed line |diff.txt|
         DiffDelete { fg = red },              -- Diff mode: Deleted line |diff.txt|
         DiffText { fg = magenta },            -- Diff mode: Changed text within a changed line |diff.txt|
@@ -145,9 +147,9 @@ local theme = lush(function(injected_functions)
         -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
         -- MoreMsg        { }, -- |more-prompt|
         -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-        Normal { fg = foreground, bg = background },      -- Normal text
-        NormalFloat { bg = background.da(10) },           -- Normal text in floating windows.
-        FloatBorder { bg = NormalFloat.bg, fg = azure },   -- Border of floating windows.
+        Normal { fg = foreground, bg = background },     -- Normal text
+        NormalFloat { bg = background.da(10) },          -- Normal text in floating windows.
+        FloatBorder { bg = NormalFloat.bg, fg = azure }, -- Border of floating windows.
         -- FloatTitle     { }, -- Title of floating windows.
         -- NormalNC       { }, -- normal text in non-current windows
         -- Pmenu          { }, -- Popup menu: Normal item.
@@ -191,23 +193,23 @@ local theme = lush(function(injected_functions)
         --
         -- Uncomment and edit if you want more specific syntax highlighting.
 
-        Comment { fg = grey.da(30) },     -- Any comment
+        Comment { fg = grey.da(30) }, -- Any comment
         --
-        Constant { fg = orange },  -- (*) Any constant
-        String { fg = green },     --   A string constant: "this is a string"
-        Character { fg = salmon }, --   A character constant: 'c', '\n'
-        Number { fg = lilac },     --   A number constant: 234, 0xff
+        Constant { fg = orange },     -- (*) Any constant
+        String { fg = green },        --   A string constant: "this is a string"
+        Character { fg = salmon },    --   A character constant: 'c', '\n'
+        Number { fg = lilac },        --   A number constant: 234, 0xff
         -- Boolean        { }, --   A boolean constant: TRUE, false
         -- Float          { }, --   A floating point constant: 2.3e10
 
-        Identifier { fg = azure }, -- (*) Any variable name
-        Function { fg = blue },   --   Function name (also: methods for classes)
+        Identifier { fg = azure },             -- (*) Any variable name
+        Function { fg = blue },                --   Function name (also: methods for classes)
         --
-        Statement { fg = blue, gui = 'bold' },  -- (*) Any statement
+        Statement { fg = blue, gui = 'bold' }, -- (*) Any statement
         -- Conditional    { }, --   if, then, else, endif, switch, etc.
         -- Repeat         { }, --   for, do, while, etc.
         -- Label          { }, --   case, default, etc.
-        Operator       { fg = foreground }, --   "sizeof", "+", "*", etc.
+        Operator { fg = foreground }, --   "sizeof", "+", "*", etc.
         -- Keyword        { }, --   any other keyword
         -- Exception      { }, --   try, catch, throw
 
@@ -249,10 +251,10 @@ local theme = lush(function(injected_functions)
 
         -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
         --
-        DiagnosticError { fg = crimson },   -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        DiagnosticWarn { fg = orange }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        DiagnosticInfo { fg = lilac },  -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        DiagnosticHint { fg = azure },  -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticError { fg = crimson }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticWarn { fg = orange },   -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticInfo { fg = lilac },    -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticHint { fg = azure },    -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
         -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
         -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
         -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
@@ -327,7 +329,7 @@ local theme = lush(function(injected_functions)
         -- sym"@operator"          { }, -- Operator
         -- sym"@keyword"           { }, -- Keyword
         -- sym"@exception"         { }, -- Exception
-        sym"@variable"          { fg = azure }, -- Identifier
+        sym "@variable" { fg = azure }, -- Identifier
         -- sym"@type"              { }, -- Type
         -- sym"@type.definition"   { }, -- Typedef
         -- sym"@storageclass"      { }, -- StorageClass
@@ -347,48 +349,49 @@ local theme = lush(function(injected_functions)
         BufferVisible { BufferInactive },
 
         -- telescope
-        TelescopeSelection { CursorLine},
+        TelescopeSelection { CursorLine },
         -- TelescopeSelectionCaret {},
-        TelescopeMultiSelection { CursorLine},
+        TelescopeMultiSelection { CursorLine },
         -- TelescopeNormal        {},
 
-        TelescopeBorder        { FloatBorder },
+        TelescopeBorder { FloatBorder },
         -- TelescopePromptBorder   {},
         -- TelescopeResultsBorder   {},
         -- TelescopePreviewBorder   {},
 
-        TelescopeMatching       { fg = azure},
-        TelescopePromptPrefix    {fg = blue},
+        TelescopeMatching { fg = azure },
+        TelescopePromptPrefix { fg = blue },
 
 
         -- cmp
-        CmpItemKindText { fg = foreground},
-        CmpItemKindMethod { fg = turquoise},
-        CmpItemKindFunction { fg = lilac},
+        CmpItemKindText { fg = foreground },
+        CmpItemKindMethod { fg = turquoise },
+        CmpItemKindFunction { fg = lilac },
         -- CmpItemKindConstructor {},
-        CmpItemKindField { fg = teal},
-        CmpItemKindVariable { fg = azure},
-        CmpItemKindClass { fg = salmon},
-        CmpItemKindInterface { fg = cyan},
+        CmpItemKindField { fg = teal },
+        CmpItemKindVariable { fg = azure },
+        CmpItemKindClass { fg = salmon },
+        CmpItemKindInterface { fg = cyan },
         CmpItemKindModule { fg = salmon },
-        CmpItemKindProperty { fg = teal.li(10).sa(10)},
+        CmpItemKindProperty { fg = teal.li(10).sa(10) },
         CmpItemKindUnit {},
         CmpItemKindValue {},
-        CmpItemKindEnum { fg = yellow},
-        CmpItemKindKeyword { fg = blue},
-        CmpItemKindSnippet { fg = green},
+        CmpItemKindEnum { fg = yellow },
+        CmpItemKindKeyword { fg = blue },
+        CmpItemKindSnippet { fg = green },
         CmpItemKindColor {},
-        CmpItemKindFile { fg = orange},
+        CmpItemKindFile { fg = orange },
         CmpItemKindReference {},
-        CmpItemKindFolder { fg = CmpItemKindFile.fg.da(10).de(10)},
-        CmpItemKindEnumMember { fg =yellow},
+        CmpItemKindFolder { fg = CmpItemKindFile.fg.da(10).de(10) },
+        CmpItemKindEnumMember { fg = yellow },
         CmpItemKindConstant { fg = red },
-        CmpItemKindStruct { fg = salmon},
+        CmpItemKindStruct { fg = salmon },
         CmpItemKindEvent {},
         CmpItemKindOperator {},
         CmpItemKindTypeParameter {},
     }
 end)
+
 
 -- Return our parsed theme for extension or use elsewhere.
 return theme

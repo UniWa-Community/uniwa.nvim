@@ -1,5 +1,4 @@
-A colorscheme for Neovim inspired by the University of West Attica.
-===
+# A colorscheme for Neovim inspired by the University of West Attica.
 
 ![image](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/a4bd424a-24b9-4805-a994-132c6699cf59)
 
@@ -19,9 +18,7 @@ Grey:       `#9d9d88`
 
 ![grey](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/0fd0b0c7-f308-45a3-9d9e-22e0d1e04b9e)
 
-
-Install
-===
+# Install
 
 ```lua
 -- with lazy
@@ -34,8 +31,7 @@ Install
 }
 ```
 
-Usage
-===
+# Usage
 
 ```vim
 colorscheme uniwa
@@ -43,7 +39,7 @@ colorscheme uniwa
 
 ---
 
-Lualine:
+## Lualine
 
 ```lua
 require("lualine").setup({
@@ -52,8 +48,7 @@ require("lualine").setup({
 
 ```
 
-Credits
-===
+#### Credits
 
 Made with [Lush](https://github.com/rktjmp/lush.nvim) and 💙.
 

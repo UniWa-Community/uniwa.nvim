@@ -227,7 +227,7 @@ local theme = lush(function(injected_functions)
         Special { Type }, -- (*) Any special symbol
         -- SpecialChar    { }, --   Special character in a constant
         -- Tag            { }, --   You can use CTRL-] on this
-        -- Delimiter      { }, --   Character that needs attention
+        Delimiter { fg = yellow }, --   Character that needs attention
         -- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
         -- Debug          { }, --   Debugging statements
 
@@ -307,8 +307,8 @@ local theme = lush(function(injected_functions)
         -- sym"@constant.macro"    { }, -- Define
         -- sym"@define"            { }, -- Define
         -- sym"@macro"             { }, -- Macro
-        -- sym"@string"            { }, -- String
-        -- sym"@string.escape"     { }, -- SpecialChar
+        sym "@string" { fg = green },         -- String
+        sym "@string.escape" { fg = yellow }, -- SpecialChar
         -- sym"@string.special"    { }, -- SpecialChar
         -- sym"@character"         { }, -- Character
         -- sym"@character.special" { }, -- SpecialChar
@@ -340,6 +340,38 @@ local theme = lush(function(injected_functions)
         -- sym"@debug"             { }, -- Debug
         -- sym"@tag"               { }, -- Tag
 
+        sym "@markup.strong" { fg = blue, gui = 'bold' },                -- bold text
+        sym "@markup.italic" { fg = azure, gui = 'italic' },             -- italic text
+        sym "@markup.strikethrough" { fg = red, gui = 'strikethrough' }, -- struck-through text
+        sym "@markup.underline" { fg = orange, gui = 'undeline' },       -- underlined text (only for literal underline markup!)
+        --
+        sym "@markup.heading.1" { fg = blue, gui = 'bold' },             -- headings, titles (including markers)
+        sym "@markup.heading.2" { fg = azure, gui = 'bold' },            -- headings, titles (including markers)
+        sym "@markup.heading.3" { fg = cyan, gui = 'bold' },             -- headings, titles (including markers)
+        sym "@markup.heading.4" { fg = lilac, gui = 'bold' },            -- headings, titles (including markers)
+        --
+        sym "@markup.quote" { fg = azure, gui = 'italic' },              -- block quotes
+        sym "@markup.math" { fg = teal },                                -- math environments (e.g. `$ ... $` in LaTeX)
+        -- sym "@markup.environment" {},               -- environments (e.g. in LaTeX)
+        --
+        sym "@markup.link" { fg = cyan }, -- text references, footnotes, citations, etc.
+        -- sym "@markup.link.label" {},                -- link, reference descriptions
+        -- sym "@markup.link.url" {},                  -- URL-style links
+        --
+        sym "@markup.raw" { fg = teal }, -- literal or verbatim text (e.g. inline code)
+        -- sym "@markup.raw.block" {},                 -- literal or verbatim text as a stand-alone block
+        --
+        sym "@markup.list" { fg = foreground },    -- list markers
+        sym "@markup.list.checked" { fg = green }, -- checked todo-style list markers
+        sym "@markup.list.unchecked" { fg = red }, -- unchecked todo-style list markers
+
+        sym "@diff.plus" { fg = green },            -- added text (for diff files)
+        sym "@diff.minus" { fg = red },            -- deleted text (for diff files)
+        sym "@diff.delta" { fg = cyan },           -- changed text (for diff files)
+
+        -- sym "@tag" {},                   -- XML-style tag names (e.g. in XML, HTML, etc.)
+        -- sym "@tag.attribute" {},         -- XML-style tag attributes
+        -- sym "@tag.delimiter" {},         -- XML-style tag delimiters
         -- barbar
         BufferCurrent { bg = background.li(10) },
         BufferCurrentMod { BufferCurrent },
@@ -351,7 +383,7 @@ local theme = lush(function(injected_functions)
         -- telescope
         TelescopeSelection { CursorLine },
         -- TelescopeSelectionCaret {},
-        TelescopeMultiSelection { CursorLine },
+        TelescopeMultiSelection { bg = CursorLine.bg, fg = azure },
         -- TelescopeNormal        {},
 
         TelescopeBorder { FloatBorder },

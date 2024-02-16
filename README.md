@@ -1,8 +1,17 @@
 # A colorscheme for Neovim inspired by the University of West Attica.
 
-![image](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/a4bd424a-24b9-4805-a994-132c6699cf59)
+In vim:
 
-![image2](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/ce5c26bb-f7fd-4be4-98b7-26079670b792)
+![image](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/7563b8ed-0a24-4ecb-a663-0410b6172260)
+
+Terminal theme:
+
+![image2](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/03b85100-b646-4694-b624-bcb6008e318b)
+
+<!-- older previews -->
+<!-- ![image](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/a4bd424a-24b9-4805-a994-132c6699cf59) -->
+<!---->
+<!-- ![image2](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/ce5c26bb-f7fd-4be4-98b7-26079670b792) -->
 
 Colors based on the 3 colors of [UniWa's optical identity](https://www.uniwa.gr/to-panepistimio/optiki-taytotita/).
 

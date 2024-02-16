@@ -1,4 +1,4 @@
---
+--theme
 -- Built with,
 --
 --        ,gggg,
@@ -23,16 +23,18 @@ local hsluv        = lush.hsluv
 
 local uniwa_blue   = hsluv(249, 89, 24) -- uniwa blue
 local uniwa_lblue  = hsluv(246, 87, 69) -- uniwa light blue
-local uniwa_grey   = hsluv(86, 22, 64)  -- uniwa tan
+local uniwa_grey   = hsluv(86, 22, 64)  -- uniwa tan grey
 
 local foreground   = uniwa_lblue.lighten(50)
 local background   = uniwa_blue.da(60).de(40)
-local middleground = background.mix(foreground, 50)
+local middleground = background.mix(foreground, 30)
 
--- local black
 local grey         = uniwa_grey
+local black        = background.mix(grey, 20)
+local white        = foreground.mix(grey, 20)
+local dark         = background.da(60)
 
-local base_1       = uniwa_blue.li(20)
+local base_1       = uniwa_blue.li(20).de(0)
 
 local blue         = base_1
 local magenta      = base_1.ro(50)
@@ -49,7 +51,8 @@ local lilac        = base_2.ro(50).de(10)
 local salmon       = base_2.ro(120)
 local orange       = base_2.ro(160)
 local yellow       = base_2.ro(188).li(40).sa(10)
-local green        = base_2.ro(225)
+local cabbage      = base_2.ro(225)
+local green        = tropic.li(45).de(15)
 local teal         = base_2.ro(300).de(40)
 local cyan         = base_2.ro(300)
 
@@ -61,34 +64,40 @@ local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 	return {
 		-- preview of :Lushify'ed colors
-		the_background { fg = background, bg = background },
-		the_middleground { fg = middleground, bg = middleground },
-		the_grey { fg = grey, bg = grey },
+		the_background { fg = background, bg = black },
+		the_foreground { fg = foreground, bg = background },
+		the_middleground { fg = middleground, bg = background },
+		the_grey { fg = grey, bg = background },
 
-		the_blue { fg = blue, bg = blue },
-		the_magenta { fg = magenta, bg = magenta },
-		the_red { fg = red, bg = red },
-		the_crimson { fg = crimson, bg = crimson },
-		the_brown { fg = brown, bg = brown },
-		the_tropic { fg = tropic, bg = tropic },
-		the_turquoise { fg = turquoise, bg = turquoise },
+		the_dark { fg = dark, bg = background },
+		the_blue { fg = blue, bg = background },
+		the_magenta { fg = magenta, bg = background },
+		the_red { fg = red, bg = background },
+		the_brown { fg = brown, bg = background },
+		the_tropic { fg = tropic, bg = background },
+		the_turquoise { fg = turquoise, bg = background },
 
-		the_azure { fg = azure, bg = azure },
-		the_lilac { fg = lilac, bg = lilac },
-		the_salmon { fg = salmon, bg = salmon },
-		the_orange { fg = orange, bg = orange },
-		the_yellow { fg = yellow, bg = yellow },
-		the_green { fg = green, bg = green },
-		the_teal { fg = teal, bg = teal },
-		the_cyan { fg = cyan, bg = cyan },
+		the_black { fg = black, bg = background },
+		the_crimson { fg = crimson, bg = background },
+		the_salmon { fg = salmon, bg = background },
+		the_cabbage { fg = cabbage, bg = background },
+		the_green { fg = green, bg = background },
+		the_yellow { fg = yellow, bg = background },
+		the_orange { fg = orange, bg = background },
+		the_azure { fg = azure, bg = background },
+		the_lilac { fg = lilac, bg = background },
+		the_cyan { fg = cyan, bg = background },
+		the_teal { fg = teal, bg = background },
+		the_white { fg = white, bg = background },
+
 
 		-- statusline
 		LualineNormal { fg = background, bg = blue },
-		LualineInsert { fg = background, bg = green },
+		LualineInsert { fg = background, bg = cabbage },
 		LualineVisual { fg = background, bg = lilac },
 		LualineReplace { fg = background, bg = red },
 		LualineCommand { fg = background, bg = cyan },
-		LualineB { fg = background, bg = middleground },
+		LualineB { fg = foreground, bg = middleground },
 		LualineC { fg = foreground, bg = background },
 		LualineInactive { fg = background, bg = grey },
 
@@ -112,7 +121,7 @@ local theme = lush(function(injected_functions)
 		salmon       = salmon,
 		orange       = orange,
 		yellow       = yellow,
-		green        = green,
+		green        = cabbage,
 		teal         = teal,
 		cyan         = cyan,
 
@@ -135,7 +144,7 @@ local theme = lush(function(injected_functions)
 		-- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
 		CursorLine { bg = background.li(5) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		-- Directory      { }, -- Directory names (and other special names in listings)
-		DiffAdd { fg = green },         -- Diff mode: Added line |diff.txt|
+		DiffAdd { fg = cabbage },       -- Diff mode: Added line |diff.txt|
 		DiffChange { fg = cyan },       -- Diff mode: Changed line |diff.txt|
 		DiffDelete { fg = red },        -- Diff mode: Deleted line |diff.txt|
 		DiffText { fg = magenta },      -- Diff mode: Changed text within a changed line |diff.txt|
@@ -208,7 +217,7 @@ local theme = lush(function(injected_functions)
 		Comment { fg = grey.da(30) }, -- Any comment
 		--
 		Constant { fg = orange }, -- (*) Any constant
-		String { fg = green },  --   A string constant: "this is a string"
+		String { fg = cabbage }, --   A string constant: "this is a string"
 		Character { fg = salmon }, --   A character constant: 'c', '\n'
 		Number { fg = lilac },  --   A number constant: 234, 0xff
 		-- Boolean        { }, --   A boolean constant: TRUE, false
@@ -319,7 +328,7 @@ local theme = lush(function(injected_functions)
 		-- sym"@constant.macro"    { }, -- Define
 		-- sym"@define"            { }, -- Define
 		-- sym"@macro"             { }, -- Macro
-		sym "@string" { fg = green },   -- String
+		sym "@string" { fg = cabbage }, -- String
 		sym "@string.escape" { fg = yellow }, -- SpecialChar
 		-- sym"@string.special"    { }, -- SpecialChar
 		-- sym"@character"         { }, -- Character
@@ -374,12 +383,12 @@ local theme = lush(function(injected_functions)
 		-- sym "markup.raw.block" {},                 -- literal or verbatim text as a stand-alone block
 		--
 		sym "@markup.list" { fg = foreground }, -- list markers
-		sym "@markup.list.checked" { fg = green }, -- checked todo-style list markers
+		sym "@markup.list.checked" { fg = cabbage }, -- checked todo-style list markers
 		sym "@markup.list.unchecked" { fg = red }, -- unchecked todo-style list markers
 
-		sym "@diff.plus" { fg = green },     -- added text (for diff files)
-		sym "@diff.minus" { fg = red },      -- deleted text (for diff files)
-		sym "@diff.delta" { fg = cyan },     -- changed text (for diff files)
+		sym "@diff.plus" { fg = cabbage },     -- added text (for diff files)
+		sym "@diff.minus" { fg = red },        -- deleted text (for diff files)
+		sym "@diff.delta" { fg = cyan },       -- changed text (for diff files)
 
 		-- sym "@tag" {},                   -- XML-style tag names (e.g. in XML, HTML, etc.)
 		-- sym "@tag.attribute" {},         -- XML-style tag attributes
@@ -422,7 +431,7 @@ local theme = lush(function(injected_functions)
 		CmpItemKindValue {},
 		CmpItemKindEnum { fg = yellow },
 		CmpItemKindKeyword { fg = blue },
-		CmpItemKindSnippet { fg = green },
+		CmpItemKindSnippet { fg = cabbage },
 		CmpItemKindColor {},
 		CmpItemKindFile { fg = orange },
 		CmpItemKindReference {},

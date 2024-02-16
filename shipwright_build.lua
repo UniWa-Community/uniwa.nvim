@@ -1,4 +1,8 @@
 local lushwright = require("shipwright.transform.lush")
+local helpers = require("shipwright.transform.helpers")
+local uniwa = require 'lush_theme.uniwa'
+local wezterm = require 'shipwright.transform.contrib.wezterm'
+local alacritty = require 'shipwright.transform.contrib.alacritty'
 
 ---Filter groups that start with strings in @startswith
 ---@param startswith table|string
@@ -19,8 +23,8 @@ local function filter_groups(startswith)
 			end
 			if not filter then
 				res[group] = hl
-			else
-				print(string.format("Filtered: [%s] = %s", group, hl))
+				-- else
+				-- print(string.format("Filtered: [%s] = %s", group, hl))
 			end
 		end
 		return res
@@ -52,38 +56,66 @@ local function to_lualine(groups)
 	}
 end
 
-local function get_value(tbl, indent)
-	if indent == nil then
-		indent = 1
-	end
-	local value = ""
-	for k, v in pairs(tbl) do
-		if indent ~= 0 then
-			value = value .. string.rep("    ", indent)
-		end
-		if type(v) == "table" then
-			value = value .. k .. " = " .. "{\n" .. get_value(v, indent + 1)
-			if indent ~= 0 then
-				value = value .. string.rep("    ", indent) .. "},\n"
-			end
-		elseif type(v) == "string" then
-			value = value .. k .. ' = "' .. v .. '",\n'
-		elseif type(v) == "number" then
-			value = value .. k .. ' = ' .. v .. ',\n'
-		elseif type(v) == "boolean" then
-			value = value .. k .. ' = ' .. v .. ',\n'
-		else
-			print(string.format("error: can't convert the type <%s>", type(v)))
+--- Converts parsed lush spec to a table for contrib.wezterm
+---@param groups table
+---@return table
+local function to_term(groups)
+	local colors = {}
+	for name, color in pairs(groups) do
+		local start, stop = string.find(name, "^the_") -- keep only the_*
+		if start and stop then
+			name = string.sub(name, stop + 1)    -- remove "Lualine"
+			colors[name] = color.fg.hex
 		end
 	end
-	return value
+	return {
+		fg = colors.foreground,
+		bg = colors.background,
+		cursor_fg = colors.background,
+		cursor_bg = colors.foreground,
+		cursor_border = colors.brown,
+		selection_fg = colors.background,
+		selection_bg = colors.middleground,
+		bright_black = colors.black,
+		bright_red = colors.crimson,
+		bright_green = colors.green,
+		bright_yellow = colors.orange,
+		bright_blue = colors.blue,
+		bright_magenta = colors.lilac,
+		bright_cyan = colors.teal,
+		bright_white = colors.grey,
+		black = colors.dark,
+		red = colors.salmon,
+		green = colors.cabbage,
+		yellow = colors.yellow,
+		blue = colors.azure,
+		magenta = colors.lilac,
+		cyan = colors.cyan,
+		white = colors.white,
+	}
 end
 
----puts @thing in a table :^)
----@param thing any
----@return table
-local function tableit(thing)
-	return { thing }
+local function to_string(tbl)
+	local function recurse(tbl, indent)
+		local value = ""
+		for k, v in pairs(tbl) do
+			value = value .. string.rep("    ", indent)
+			if type(v) == "table" then
+				value = value .. k .. " = " .. "{\n" .. recurse(v, indent + 1)
+				value = value .. string.rep("    ", indent) .. "},\n"
+			elseif type(v) == "string" then
+				value = value .. k .. ' = "' .. v .. '",\n'
+			elseif type(v) == "number" then
+				value = value .. k .. ' = ' .. v .. ',\n'
+			elseif type(v) == "boolean" then
+				value = value .. k .. ' = ' .. v .. ',\n'
+			else
+				print(string.format("error: can't convert the type <%s>", type(v)))
+			end
+		end
+		return value
+	end
+	return recurse(tbl, 1)
 end
 
 ---convert lua table to strings of lua code
@@ -96,15 +128,20 @@ local function table_to_lua(tbl, add_braces)
 	end
 	local res
 	if add_braces then
-		res = '{\n' .. get_value(tbl) .. "}"
+		res = '{\n' .. to_string(tbl) .. "}"
 	else
-		res = get_value(tbl)
+		res = to_string(tbl)
 	end
-	return tableit(res)
+	return res
+end
+
+local function table_to_lines_of_lua(tbl)
+	return helpers.split_newlines(table_to_lua(tbl, false))
 end
 
 
-run(require("lush_theme.uniwa"),
+---@diagnostic disable: undefined-global
+run(uniwa,
 	-- filter out the the_<color> groups, since they are only used for :Lushify'ed previewing
 	-- also the Lualine groups, since they are only used for the lualine theme
 	filter_groups({ "the", "Lualine" }),
@@ -115,9 +152,19 @@ run(require("lush_theme.uniwa"),
 	-- for differing comment styles, patchwrite isn't limited to lua files.
 	{ patchwrite, "colors/uniwa.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" })
 
-run(require("lush_theme.uniwa"),
-	-- show,
-	to_lualine, -- get lualine theme
-	table_to_lua, -- turn into string of lua code
-	{ patchwrite, "lua/lualine/themes/uniwa.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" }
+run(uniwa,
+	to_lualine,         -- get lualine theme
+	table_to_lines_of_lua, -- turn into string of lua code
+	{ patchwrite, "lua/lualine/themes/uniwa.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" })
+
+run(uniwa,
+	to_term, -- get wezterm theme
+	{ branch,
+		wezterm,
+		{ overwrite, "extra/wezterm.toml" }
+	},
+	{ branch,
+		alacritty,
+		{ overwrite, "extra/alacritty.yaml" }
+	}
 )

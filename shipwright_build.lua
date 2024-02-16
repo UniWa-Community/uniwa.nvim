@@ -1,6 +1,5 @@
 local lushwright = require("shipwright.transform.lush")
 local helpers = require("shipwright.transform.helpers")
-local uniwa = require 'lush_theme.uniwa'
 local wezterm = require 'shipwright.transform.contrib.wezterm'
 local alacritty = require 'shipwright.transform.contrib.alacritty'
 
@@ -139,32 +138,44 @@ local function table_to_lines_of_lua(tbl)
 	return helpers.split_newlines(table_to_lua(tbl, false))
 end
 
-
 ---@diagnostic disable: undefined-global
-run(uniwa,
-	-- filter out the the_<color> groups, since they are only used for :Lushify'ed previewing
-	-- also the Lualine groups, since they are only used for the lualine theme
-	filter_groups({ "the", "Lualine" }),
-	-- generate lua code
-	lushwright.to_lua,
-	-- write the lua code into our destination.
-	-- you must specify open and close markers yourself to account
-	-- for differing comment styles, patchwrite isn't limited to lua files.
-	{ patchwrite, "colors/uniwa.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" })
+for _, variant in ipairs({ "default", "dark", "light" }) do
+	-- unload package first
+	package.loaded["lush_theme.uniwa"] = nil
+	vim.g.uniwa_variant = variant -- evil global
 
-run(uniwa,
-	to_lualine,         -- get lualine theme
-	table_to_lines_of_lua, -- turn into string of lua code
-	{ patchwrite, "lua/lualine/themes/uniwa.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" })
+	local uniwa = require 'lush_theme.uniwa'
 
-run(uniwa,
-	to_term, -- get wezterm theme
-	{ branch,
-		wezterm,
-		{ overwrite, "extra/wezterm.toml" }
-	},
-	{ branch,
-		alacritty,
-		{ overwrite, "extra/alacritty.yaml" }
-	}
-)
+	-- appended to non default variants
+	local variant_filename = ""
+	if variant ~= "default" then
+		variant_filename = "-" .. variant
+	end
+	run(uniwa,
+		-- filter out the the_<color> groups, since they are only used for :Lushify'ed previewing
+		-- also the Lualine groups, since they are only used for the lualine theme
+		filter_groups({ "the", "Lualine" }),
+		-- generate lua code
+		lushwright.to_lua,
+		-- write the lua code into our destination.
+		-- you must specify open and close markers yourself to account
+		-- for differing comment styles, patchwrite isn't limited to lua files.
+		{ patchwrite, "colors/uniwa" .. variant_filename .. ".lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" })
+
+	run(uniwa,
+		to_lualine,     -- get lualine theme
+		table_to_lines_of_lua, -- turn into string of lua code
+		{ patchwrite, "lua/lualine/themes/uniwa" .. variant_filename .. ".lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" })
+
+	run(uniwa,
+		to_term, -- get wezterm theme
+		{ branch,
+			wezterm,
+			{ overwrite, "extra/wezterm" .. variant_filename .. ".toml" }
+		},
+		{ branch,
+			alacritty,
+			{ overwrite, "extra/alacritty" .. variant_filename .. ".yaml" }
+		}
+	)
+end

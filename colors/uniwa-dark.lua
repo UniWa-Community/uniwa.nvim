@@ -1,11 +1,10 @@
-
 local colors = {
 	-- content here will not be touched
 	-- PATCH_OPEN
-Normal = {fg = "#BED6FA", bg = "#121C2A"},
-BufferCurrent = {bg = "#212F43"},
+Normal = {fg = "#BED6FA", bg = "#04080E"},
+BufferCurrent = {bg = "#152030"},
 BufferCurrentMod = {link = "BufferCurrent"},
-BufferInactive = {fg = "#8CA8CE", bg = "#121C2A"},
+BufferInactive = {fg = "#8CA8CE", bg = "#04080E"},
 BufferInactiveMod = {link = "BufferInactive"},
 BufferVisible = {link = "BufferInactive"},
 Character = {fg = "#F68895"},
@@ -35,7 +34,7 @@ CmpItemKindValue = {},
 CmpItemKindVariable = {fg = "#68ADF4"},
 Comment = {fg = "#6B6B5D"},
 Constant = {fg = "#E19A3C"},
-CursorLine = {bg = "#1A2638"},
+CursorLine = {bg = "#0E1622"},
 TelescopeSelection = {link = "CursorLine"},
 Delimiter = {fg = "#E1CA46"},
 DiagnosticError = {fg = "#EA2641"},
@@ -48,13 +47,13 @@ DiffDelete = {fg = "#B41B30"},
 DiffText = {fg = "#9723A9"},
 Error = {fg = "#EA2641"},
 ErrorMsg = {fg = "#EA2641", bold = true},
-FloatBorder = {fg = "#68ADF4", bg = "#111A27"},
+FloatBorder = {fg = "#68ADF4", bg = "#04080E"},
 TelescopeBorder = {link = "FloatBorder"},
 Function = {fg = "#215E99"},
 Identifier = {fg = "#68ADF4"},
 IncSearch = {bg = "#7B541A"},
 LineNr = {fg = "#426389"},
-NormalFloat = {bg = "#111A27"},
+NormalFloat = {bg = "#04080E"},
 Number = {fg = "#D58DEC"},
 Operator = {fg = "#BED6FA"},
 PreProc = {fg = "#9723A9", bold = true},
@@ -63,7 +62,7 @@ Statement = {fg = "#215E99", bold = true},
 String = {fg = "#83B83B"},
 Substitute = {fg = "#F68895", bg = "#7B541A"},
 TelescopeMatching = {fg = "#68ADF4"},
-TelescopeMultiSelection = {fg = "#68ADF4", bg = "#1A2638"},
+TelescopeMultiSelection = {fg = "#68ADF4", bg = "#0E1622"},
 TelescopePromptPrefix = {fg = "#215E99"},
 Type = {fg = "#79B3AF", italic = true},
 Special = {link = "Type"},
@@ -95,7 +94,7 @@ Special = {link = "Type"},
 -- colorschemes generally want to do this
 vim.cmd("highlight clear")
 vim.cmd("set t_Co=256")
-vim.cmd("let g:colors_name='uniwa'")
+vim.cmd("let g:colors_name='uniwa-dark'")
 
 -- apply highlight groups
 for group, attrs in pairs(colors) do

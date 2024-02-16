@@ -17,6 +17,7 @@
 --  `:Lushify`
 --
 
+
 local lush         = require('lush')
 local hsl          = lush.hsl
 local hsluv        = lush.hsluv
@@ -24,38 +25,52 @@ local hsluv        = lush.hsluv
 local uniwa_blue   = hsluv(249, 89, 24) -- uniwa blue
 local uniwa_lblue  = hsluv(246, 87, 69) -- uniwa light blue
 local uniwa_grey   = hsluv(86, 22, 64)  -- uniwa tan grey
+local peach_white  = hsluv("#fff4e5")
 
 local foreground   = uniwa_lblue.lighten(50)
 local background   = uniwa_blue.da(60).de(40)
+
+if vim.g.uniwa_variant == "light" then
+	foreground, background = background, peach_white
+elseif vim.g.uniwa_variant == "dark" then
+	background = background.da(80)
+end
+
 local middleground = background.mix(foreground, 30)
 
-local grey         = uniwa_grey
-local black        = background.mix(grey, 20)
-local white        = foreground.mix(grey, 20)
-local dark         = background.da(60)
+local grey   = uniwa_grey
+local black  = background.mix(grey, 20)
+local white  = foreground.mix(grey, 20)
+local dark   = background.da(60)
 
-local base_1       = uniwa_blue.li(20).de(0)
+local base_1 = uniwa_blue.li(20).de(0)
+if vim.g.uniwa_variant == "light" then
+	base_1 = base_1.da(40)
+end
 
-local blue         = base_1
-local magenta      = base_1.ro(50)
-local red          = base_1.ro(120)
-local crimson      = base_1.ro(120).li(20)
-local brown        = base_1.ro(160)
-local tropic       = base_1.ro(240)
-local turquoise    = base_1.ro(300)
+local blue      = base_1
+local magenta   = base_1.ro(50)
+local red       = base_1.ro(120)
+local crimson   = base_1.ro(120).li(20)
+local brown     = base_1.ro(160)
+local tropic    = base_1.ro(240)
+local turquoise = base_1.ro(300)
 
-local base_2       = uniwa_lblue
+local base_2    = uniwa_lblue
 
-local azure        = base_2
-local lilac        = base_2.ro(50).de(10)
-local salmon       = base_2.ro(120)
-local orange       = base_2.ro(160)
-local yellow       = base_2.ro(188).li(40).sa(10)
-local cabbage      = base_2.ro(225)
-local green        = tropic.li(45).de(15)
-local teal         = base_2.ro(300).de(40)
-local cyan         = base_2.ro(300)
+if vim.g.uniwa_variant == "light" then
+	base_2 = base_2.da(40)
+end
 
+local azure   = base_2
+local lilac   = base_2.ro(50).de(10)
+local salmon  = base_2.ro(120)
+local orange  = base_2.ro(160)
+local yellow  = base_2.ro(188).li(40).sa(10)
+local cabbage = base_2.ro(225)
+local green   = tropic.li(45).de(15)
+local teal    = base_2.ro(300).de(40)
+local cyan    = base_2.ro(300)
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.

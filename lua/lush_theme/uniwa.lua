@@ -12,35 +12,10 @@
 -- Yb,_,d88b,,_   ,d8b,  ,d8b,,8'_   8) ,d8     I8,
 --  "Y8P"  "Y888888P'"Y88P"`Y8P' "YY8P8P88P     `Y8
 --
-
--- This is a starter colorscheme for use with Lush,
--- for usage guides, see :h lush or :LushRunTutorial
-
---
--- Note: Because this is a lua file, vim will append it to the runtime,
---       which means you can require(...) it in other lua code (this is useful),
---       but you should also take care not to conflict with other libraries.
---
---       (This is a lua quirk, as it has somewhat poor support for namespacing.)
---
---       Basically, name your file,
---
---       "super_theme/lua/lush_theme/super_theme_dark.lua",
---
---       not,
---
---       "super_theme/lua/dark.lua".
---
---       With that caveat out of the way...
---
-
 -- Enable lush.ify on this file, run:
 --
 --  `:Lushify`
 --
---  or
---
---  `:lua require('lush').ify()`
 
 local lush         = require('lush')
 local hsl          = lush.hsl
@@ -85,7 +60,7 @@ local cyan         = base_2.ro(300)
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 	return {
-		the_foreground { fg = foreground, bg = foreground },
+		-- preview of :Lushify'ed colors
 		the_background { fg = background, bg = background },
 		the_middleground { fg = middleground, bg = middleground },
 		the_grey { fg = grey, bg = grey },
@@ -106,6 +81,41 @@ local theme = lush(function(injected_functions)
 		the_green { fg = green, bg = green },
 		the_teal { fg = teal, bg = teal },
 		the_cyan { fg = cyan, bg = cyan },
+
+		-- statusline
+		LualineNormal { fg = background, bg = blue },
+		LualineInsert { fg = background, bg = green },
+		LualineVisual { fg = background, bg = lilac },
+		LualineReplace { fg = background, bg = red },
+		LualineCommand { fg = background, bg = cyan },
+		LualineB { fg = background, bg = middleground },
+		LualineC { fg = foreground, bg = background },
+		LualineInactive { fg = background, bg = grey },
+
+
+		-- the actual colors
+		foreground   = foreground,
+		background   = background,
+		middleground = middleground,
+		grey         = grey,
+
+		blue         = blue,
+		magenta      = magenta,
+		red          = red,
+		crimson      = crimson,
+		brown        = brown,
+		tropic       = tropic,
+		turquoise    = turquoise,
+
+		azure        = azure,
+		lilac        = lilac,
+		salmon       = salmon,
+		orange       = orange,
+		yellow       = yellow,
+		green        = green,
+		teal         = teal,
+		cyan         = cyan,
+
 		-- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
 		-- groups, mostly used for styling UI elements.
 		-- Comment them out and add your own properties to override the defaults.
@@ -342,34 +352,34 @@ local theme = lush(function(injected_functions)
 		-- sym"@debug"             { }, -- Debug
 		-- sym"@tag"               { }, -- Tag
 
-		sym"@markup.strong" { fg = blue, gui = 'bold' },          -- bold text
-		sym"@markup.italic" { fg = azure, gui = 'italic' },       -- italic text
-		sym"@markup.strikethrough" { fg = red, gui = 'strikethrough' }, -- struck-through text
-		sym"@markup.underline" { fg = orange, gui = 'undeline' }, -- underlined text (only for literal underline markup!)
+		sym "@markup.strong" { fg = blue, gui = 'bold' },          -- bold text
+		sym "@markup.italic" { fg = azure, gui = 'italic' },       -- italic text
+		sym "@markup.strikethrough" { fg = red, gui = 'strikethrough' }, -- struck-through text
+		sym "@markup.underline" { fg = orange, gui = 'undeline' }, -- underlined text (only for literal underline markup!)
 		--
-		sym"@markup.heading.1" { fg = blue, gui = 'bold' },       -- headings, titles (including markers)
-		sym"@markup.heading.2" { fg = azure, gui = 'bold' },      -- headings, titles (including markers)
-		sym"@markup.heading.3" { fg = cyan, gui = 'bold' },       -- headings, titles (including markers)
-		sym"@markup.heading.4" { fg = lilac, gui = 'bold' },      -- headings, titles (including markers)
+		sym "@markup.heading.1" { fg = blue, gui = 'bold' },       -- headings, titles (including markers)
+		sym "@markup.heading.2" { fg = azure, gui = 'bold' },      -- headings, titles (including markers)
+		sym "@markup.heading.3" { fg = cyan, gui = 'bold' },       -- headings, titles (including markers)
+		sym "@markup.heading.4" { fg = lilac, gui = 'bold' },      -- headings, titles (including markers)
 		--
-		sym"@markup.quote" { fg = azure, gui = 'italic' },        -- block quotes
-		sym"@markup.math" { fg = teal },                          -- math environments (e.g. `$ ... $` in LaTeX)
+		sym "@markup.quote" { fg = azure, gui = 'italic' },        -- block quotes
+		sym "@markup.math" { fg = teal },                          -- math environments (e.g. `$ ... $` in LaTeX)
 		-- sym "markup.environment" {},               -- environments (e.g. in LaTeX)
 		--
-		sym"@markup.link" { fg = cyan }, -- text references, footnotes, citations, etc.
+		sym "@markup.link" { fg = cyan }, -- text references, footnotes, citations, etc.
 		-- sym "markup.link.label" {},                -- link, reference descriptions
 		-- sym "markup.link.url" {},                  -- URL-style links
 		--
-		sym"@markup.raw" { fg = teal }, -- literal or verbatim text (e.g. inline code)
+		sym "@markup.raw" { fg = teal }, -- literal or verbatim text (e.g. inline code)
 		-- sym "markup.raw.block" {},                 -- literal or verbatim text as a stand-alone block
 		--
-		sym"@markup.list" { fg = foreground }, -- list markers
-		sym"@markup.list.checked" { fg = green }, -- checked todo-style list markers
-		sym"@markup.list.unchecked" { fg = red }, -- unchecked todo-style list markers
+		sym "@markup.list" { fg = foreground }, -- list markers
+		sym "@markup.list.checked" { fg = green }, -- checked todo-style list markers
+		sym "@markup.list.unchecked" { fg = red }, -- unchecked todo-style list markers
 
-		sym"@diff.plus" { fg = green },     -- added text (for diff files)
-		sym"@diff.minus" { fg = red },      -- deleted text (for diff files)
-		sym"@diff.delta" { fg = cyan },     -- changed text (for diff files)
+		sym "@diff.plus" { fg = green },     -- added text (for diff files)
+		sym "@diff.minus" { fg = red },      -- deleted text (for diff files)
+		sym "@diff.delta" { fg = cyan },     -- changed text (for diff files)
 
 		-- sym "@tag" {},                   -- XML-style tag names (e.g. in XML, HTML, etc.)
 		-- sym "@tag.attribute" {},         -- XML-style tag attributes

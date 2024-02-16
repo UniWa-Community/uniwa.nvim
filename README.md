@@ -24,10 +24,6 @@ Grey:       `#9d9d88`
 -- with lazy
 {
     'UniWa-Community/uniwa.nvim',
-    dependencies = {
-        'rktjmp/lush.nvim',
-        version = false, -- tested with last commit only :P
-    }
 }
 ```
 
@@ -48,10 +44,25 @@ require("lualine").setup({
 
 ```
 
+# Building the colorscheme from source
+
+First off it requires the following plugins to be installed:
+
+* [lush](https://github.com/rktjmp/lush.nvim)
+
+* [shipwright](https://github.com/rktjmp/shipwright.nvim)
+
+```lua
+'rktjmp/shipwright.nvim',
+'rktjmp/lush.nvim',
+```
+
+After installing them, you can run `:Shipwright` in the repo's root directory, which will generate:
+
+* a lua colorscheme in `./colors/uniwa.lua`
+
+* a lualine theme in `./lua/lualine/themes/uniwa.lua`
+
 #### Credits
 
 Made with [Lush](https://github.com/rktjmp/lush.nvim) and 💙.
-
-See: http://git.io/lush.nvim for more information on Lush and a helper script
-to setup your repo clone.
-

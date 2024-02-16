@@ -108,10 +108,10 @@ local theme = lush(function(injected_functions)
 
 		-- statusline
 		LualineNormal { fg = background, bg = blue },
-		LualineInsert { fg = background, bg = cabbage },
+		LualineInsert { fg = background, bg = azure },
 		LualineVisual { fg = background, bg = lilac },
-		LualineReplace { fg = background, bg = red },
-		LualineCommand { fg = background, bg = cyan },
+		LualineReplace { fg = background, bg = salmon },
+		LualineCommand { fg = background, bg = cabbage },
 		LualineB { fg = foreground, bg = middleground },
 		LualineC { fg = foreground, bg = background },
 		LualineInactive { fg = background, bg = grey },

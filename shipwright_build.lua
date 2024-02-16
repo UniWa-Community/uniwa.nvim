@@ -139,14 +139,15 @@ local function table_to_lines_of_lua(tbl)
 end
 
 ---@diagnostic disable: undefined-global
-for _, variant in ipairs({ "default", "dark", "light" }) do
-	-- unload package first
+for _, variant in ipairs({ "dark", "light", "default" }) do
+	-- unload package first, so it's loaded again,
+	-- taking into account the new vim.g.uniwa_variant global
 	package.loaded["lush_theme.uniwa"] = nil
 	vim.g.uniwa_variant = variant -- evil global
 
 	local uniwa = require 'lush_theme.uniwa'
 
-	-- appended to non default variants
+	-- appended to non default variants' filenames
 	local variant_filename = ""
 	if variant ~= "default" then
 		variant_filename = "-" .. variant

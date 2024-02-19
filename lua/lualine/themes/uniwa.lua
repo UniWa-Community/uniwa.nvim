@@ -1,88 +1,88 @@
 
 return {
 	-- PATCH_OPEN
-    replace = {
-        b = {
-            bg = "#334F72",
-            fg = "#BED6FA",
-        },
-        c = {
-            bg = "#121C2A",
-            fg = "#BED6FA",
-        },
-        a = {
-            bg = "#F68895",
-            fg = "#121C2A",
-        },
-    },
-    visual = {
-        b = {
-            bg = "#334F72",
-            fg = "#BED6FA",
-        },
-        c = {
-            bg = "#121C2A",
-            fg = "#BED6FA",
-        },
-        a = {
-            bg = "#D58DEC",
-            fg = "#121C2A",
-        },
-    },
-    normal = {
-        b = {
-            bg = "#334F72",
-            fg = "#BED6FA",
-        },
-        c = {
-            bg = "#121C2A",
-            fg = "#BED6FA",
-        },
-        a = {
-            bg = "#215E99",
-            fg = "#121C2A",
-        },
-    },
     inactive = {
-        b = {
-            bg = "#334F72",
-            fg = "#BED6FA",
+        a = {
+            fg = "#121C2A",
+            bg = "#9C9C88",
         },
         c = {
-            bg = "#121C2A",
             fg = "#BED6FA",
+            bg = "#121C2A",
         },
-        a = {
-            bg = "#9C9C88",
-            fg = "#121C2A",
+        b = {
+            fg = "#BED6FA",
+            bg = "#334F72",
         },
     },
     insert = {
-        b = {
-            bg = "#334F72",
-            fg = "#BED6FA",
+        a = {
+            fg = "#121C2A",
+            bg = "#4DB554",
         },
         c = {
-            bg = "#121C2A",
             fg = "#BED6FA",
+            bg = "#121C2A",
         },
+        b = {
+            fg = "#BED6FA",
+            bg = "#334F72",
+        },
+    },
+    normal = {
         a = {
-            bg = "#68ADF4",
             fg = "#121C2A",
+            bg = "#68ADF4",
+        },
+        c = {
+            fg = "#BED6FA",
+            bg = "#121C2A",
+        },
+        b = {
+            fg = "#BED6FA",
+            bg = "#334F72",
+        },
+    },
+    replace = {
+        a = {
+            fg = "#121C2A",
+            bg = "#F68895",
+        },
+        c = {
+            fg = "#BED6FA",
+            bg = "#121C2A",
+        },
+        b = {
+            fg = "#BED6FA",
+            bg = "#334F72",
+        },
+    },
+    visual = {
+        a = {
+            fg = "#121C2A",
+            bg = "#D58DEC",
+        },
+        c = {
+            fg = "#BED6FA",
+            bg = "#121C2A",
+        },
+        b = {
+            fg = "#BED6FA",
+            bg = "#334F72",
         },
     },
     command = {
-        b = {
-            bg = "#334F72",
-            fg = "#BED6FA",
+        a = {
+            fg = "#121C2A",
+            bg = "#40BAB4",
         },
         c = {
-            bg = "#121C2A",
             fg = "#BED6FA",
+            bg = "#121C2A",
         },
-        a = {
-            bg = "#83B83B",
-            fg = "#121C2A",
+        b = {
+            fg = "#BED6FA",
+            bg = "#334F72",
         },
     },
 	-- PATCH_CLOSE

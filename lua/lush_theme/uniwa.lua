@@ -30,53 +30,53 @@ local peach_white  = hsluv("#fff4e5")
 local foreground   = uniwa_lblue.lighten(50)
 local background   = uniwa_blue.da(60).de(40)
 
+local contrast = 0
 if vim.g.uniwa_variant == "light" then
-	foreground, background = background, peach_white
+	foreground, background = background, foreground
+	contrast = 15
 elseif vim.g.uniwa_variant == "dark" then
 	background = background.da(80)
+elseif vim.g.uniwa_variant == "paper" then
+	foreground, background = background, peach_white
+	contrast = 30
 end
 
 local middleground = background.mix(foreground, 30)
+local bg_contrast = background.mix(foreground, 5)
 
 local grey   = uniwa_grey
 local black  = background.mix(grey, 20)
 local white  = foreground.mix(grey, 20)
 local dark   = background.da(60)
 
-local base_1 = uniwa_blue.li(20).de(0)
-if vim.g.uniwa_variant == "light" then
-	base_1 = base_1.da(40)
-end
+local base = uniwa_blue.li(20).mix(foreground, contrast)
 
-local blue      = base_1
-local magenta   = base_1.ro(50)
-local red       = base_1.ro(120)
-local crimson   = base_1.ro(120).li(20)
-local brown     = base_1.ro(160)
-local tropic    = base_1.ro(240)
-local turquoise = base_1.ro(300)
+local blue      = base
+local magenta   = base.ro(50)
+local red       = base.ro(120)
+local crimson   = base.ro(120).li(20)
+local brown     = base.ro(160)
+local tropic    = base.ro(240)
+local turquoise = base.ro(300)
 
-local base_2    = uniwa_lblue
+local bright_base    = uniwa_lblue.mix(foreground, contrast)
 
-if vim.g.uniwa_variant == "light" then
-	base_2 = base_2.da(40)
-end
-
-local azure   = base_2
-local lilac   = base_2.ro(50).de(10)
-local salmon  = base_2.ro(120)
-local orange  = base_2.ro(160)
-local yellow  = base_2.ro(188).li(40).sa(10)
-local cabbage = base_2.ro(225)
+local azure   = bright_base
+local lilac   = bright_base.ro(50).de(10)
+local salmon  = bright_base.ro(120)
+local orange  = bright_base.ro(160)
+local yellow  = bright_base.ro(188).li(40).sa(10)
+local cabbage = bright_base.ro(225)
 local green   = tropic.li(45).de(15)
-local teal    = base_2.ro(300).de(40)
-local cyan    = base_2.ro(300)
+local teal    = bright_base.ro(300).de(40)
+local cyan    = bright_base.ro(300)
+
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
-	local sym = injected_functions.sym
+	local sym= injected_functions.sym
 	return {
 		-- preview of :Lushify'ed colors
 		the_background { fg = background, bg = black },
@@ -107,11 +107,11 @@ local theme = lush(function(injected_functions)
 
 
 		-- statusline
-		LualineNormal { fg = background, bg = blue },
-		LualineInsert { fg = background, bg = azure },
+		LualineNormal { fg = background, bg = azure },
+		LualineInsert { fg = background, bg = green },
 		LualineVisual { fg = background, bg = lilac },
 		LualineReplace { fg = background, bg = salmon },
-		LualineCommand { fg = background, bg = cabbage },
+		LualineCommand { fg = background, bg = cyan },
 		LualineB { fg = foreground, bg = middleground },
 		LualineC { fg = foreground, bg = background },
 		LualineInactive { fg = background, bg = grey },
@@ -157,7 +157,7 @@ local theme = lush(function(injected_functions)
 		-- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		-- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
 		-- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-		CursorLine { bg = background.li(5) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+		CursorLine { bg = bg_contrast }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		-- Directory      { }, -- Directory names (and other special names in listings)
 		DiffAdd { fg = cabbage },       -- Diff mode: Added line |diff.txt|
 		DiffChange { fg = cyan },       -- Diff mode: Changed line |diff.txt|
@@ -184,7 +184,7 @@ local theme = lush(function(injected_functions)
 		-- MoreMsg        { }, -- |more-prompt|
 		-- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 		Normal { fg = foreground, bg = background }, -- Normal text
-		NormalFloat { bg = background.da(10) },    -- Normal text in floating windows.
+		NormalFloat { bg = bg_contrast },    -- Normal text in floating windows.
 		FloatBorder { bg = NormalFloat.bg, fg = azure }, -- Border of floating windows.
 		-- FloatTitle     { }, -- Title of floating windows.
 		-- NormalNC       { }, -- normal text in non-current windows
@@ -320,7 +320,7 @@ local theme = lush(function(injected_functions)
 		--
 		-- Tree-Sitter groups are defined with an "@" symbol, which must be
 		-- specially handled to be valid lua code, we do this via the special
-		-- sym function. The following are all valid ways to call the sym function,
+		-- symfunction. The following are all valid ways to call the symfunction,
 		-- for more details see https://www.lua.org/pil/5.html
 		--
 		-- sym("@text.literal")
@@ -330,7 +330,7 @@ local theme = lush(function(injected_functions)
 		--
 		-- For more information see https://github.com/rktjmp/lush.nvim/issues/109
 
-		-- sym "@text.literal" { },     -- Comment
+		-- sym"@text.literal" { },     -- Comment
 		-- sym"@text.reference"    { }, -- Identifier
 		-- sym"@text.title"        { }, -- Title
 		-- sym"@text.uri"          { }, -- Underlined
@@ -343,8 +343,8 @@ local theme = lush(function(injected_functions)
 		-- sym"@constant.macro"    { }, -- Define
 		-- sym"@define"            { }, -- Define
 		-- sym"@macro"             { }, -- Macro
-		sym "@string" { fg = cabbage }, -- String
-		sym "@string.escape" { fg = yellow }, -- SpecialChar
+		sym"@string" { fg = cabbage }, -- String
+		sym"@string.escape" { fg = yellow }, -- SpecialChar
 		-- sym"@string.special"    { }, -- SpecialChar
 		-- sym"@character"         { }, -- Character
 		-- sym"@character.special" { }, -- SpecialChar
@@ -365,7 +365,7 @@ local theme = lush(function(injected_functions)
 		-- sym"@operator"          { }, -- Operator
 		-- sym"@keyword"           { }, -- Keyword
 		-- sym"@exception"         { }, -- Exception
-		sym "@variable" { fg = azure }, -- Identifier
+		sym"@variable" { fg = azure }, -- Identifier
 		-- sym"@type"              { }, -- Type
 		-- sym"@type.definition"   { }, -- Typedef
 		-- sym"@storageclass"      { }, -- StorageClass
@@ -376,38 +376,39 @@ local theme = lush(function(injected_functions)
 		-- sym"@debug"             { }, -- Debug
 		-- sym"@tag"               { }, -- Tag
 
-		sym "@markup.strong" { fg = blue, gui = 'bold' },          -- bold text
-		sym "@markup.italic" { fg = azure, gui = 'italic' },       -- italic text
-		sym "@markup.strikethrough" { fg = red, gui = 'strikethrough' }, -- struck-through text
-		sym "@markup.underline" { fg = orange, gui = 'undeline' }, -- underlined text (only for literal underline markup!)
+		sym"@markup.strong" { fg = blue, gui = 'bold' },          -- bold text
+		sym"@markup.italic" { fg = azure, gui = 'italic' },       -- italic text
+		sym"@markup.strikethrough" { fg = red, gui = 'strikethrough' }, -- struck-through text
+		sym"@markup.underline" { fg = orange, gui = 'undeline' }, -- underlined text (only for literal underline markup!)
 		--
-		sym "@markup.heading.1" { fg = blue, gui = 'bold' },       -- headings, titles (including markers)
-		sym "@markup.heading.2" { fg = azure, gui = 'bold' },      -- headings, titles (including markers)
-		sym "@markup.heading.3" { fg = cyan, gui = 'bold' },       -- headings, titles (including markers)
-		sym "@markup.heading.4" { fg = lilac, gui = 'bold' },      -- headings, titles (including markers)
+		sym"@markup.heading" { fg = foreground, gui = 'bold' },       -- headings, titles (including markers)
+		sym"@markup.heading.1" { fg = blue, gui = 'bold' },       -- headings, titles (including markers)
+		sym"@markup.heading.2" { fg = azure, gui = 'bold' },      -- headings, titles (including markers)
+		sym"@markup.heading.3" { fg = cyan, gui = 'bold' },       -- headings, titles (including markers)
+		sym"@markup.heading.4" { fg = lilac, gui = 'bold' },      -- headings, titles (including markers)
 		--
-		sym "@markup.quote" { fg = azure, gui = 'italic' },        -- block quotes
-		sym "@markup.math" { fg = teal },                          -- math environments (e.g. `$ ... $` in LaTeX)
-		-- sym "markup.environment" {},               -- environments (e.g. in LaTeX)
+		sym"@markup.quote" { fg = azure, gui = 'italic' },        -- block quotes
+		sym"@markup.math" { fg = teal },                          -- math environments (e.g. `$ ... $` in LaTeX)
+		-- sym"markup.environment" {},               -- environments (e.g. in LaTeX)
 		--
-		sym "@markup.link" { fg = cyan }, -- text references, footnotes, citations, etc.
-		-- sym "markup.link.label" {},                -- link, reference descriptions
-		-- sym "markup.link.url" {},                  -- URL-style links
+		sym"@markup.link" { fg = cyan }, -- text references, footnotes, citations, etc.
+		-- sym"markup.link.label" {},                -- link, reference descriptions
+		-- sym"markup.link.url" {},                  -- URL-style links
 		--
-		sym "@markup.raw" { fg = teal }, -- literal or verbatim text (e.g. inline code)
-		-- sym "markup.raw.block" {},                 -- literal or verbatim text as a stand-alone block
+		sym"@markup.raw" { fg = teal }, -- literal or verbatim text (e.g. inline code)
+		-- sym"markup.raw.block" {},                 -- literal or verbatim text as a stand-alone block
 		--
-		sym "@markup.list" { fg = foreground }, -- list markers
-		sym "@markup.list.checked" { fg = cabbage }, -- checked todo-style list markers
-		sym "@markup.list.unchecked" { fg = red }, -- unchecked todo-style list markers
+		sym"@markup.list" { fg = foreground }, -- list markers
+		sym"@markup.list.checked" { fg = cabbage }, -- checked todo-style list markers
+		sym"@markup.list.unchecked" { fg = red }, -- unchecked todo-style list markers
 
-		sym "@diff.plus" { fg = cabbage },     -- added text (for diff files)
-		sym "@diff.minus" { fg = red },        -- deleted text (for diff files)
-		sym "@diff.delta" { fg = cyan },       -- changed text (for diff files)
+		sym"@diff.plus" { fg = cabbage },     -- added text (for diff files)
+		sym"@diff.minus" { fg = red },        -- deleted text (for diff files)
+		sym"@diff.delta" { fg = cyan },       -- changed text (for diff files)
 
-		-- sym "@tag" {},                   -- XML-style tag names (e.g. in XML, HTML, etc.)
-		-- sym "@tag.attribute" {},         -- XML-style tag attributes
-		-- sym "@tag.delimiter" {},         -- XML-style tag delimiters
+		-- sym"@tag" {},                   -- XML-style tag names (e.g. in XML, HTML, etc.)
+		-- sym"@tag.attribute" {},         -- XML-style tag attributes
+		-- sym"@tag.delimiter" {},         -- XML-style tag delimiters
 		-- barbar
 		BufferCurrent { bg = background.li(10) },
 		BufferCurrentMod { BufferCurrent },

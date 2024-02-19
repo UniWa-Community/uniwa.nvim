@@ -35,7 +35,7 @@ CmpItemKindValue = {},
 CmpItemKindVariable = {fg = "#68ADF4"},
 Comment = {fg = "#6B6B5D"},
 Constant = {fg = "#E19A3C"},
-CursorLine = {bg = "#1A2638"},
+CursorLine = {bg = "#182436"},
 TelescopeSelection = {link = "CursorLine"},
 Delimiter = {fg = "#E1CA46"},
 DiagnosticError = {fg = "#EA2641"},
@@ -48,13 +48,13 @@ DiffDelete = {fg = "#B41B30"},
 DiffText = {fg = "#9723A9"},
 Error = {fg = "#EA2641"},
 ErrorMsg = {fg = "#EA2641", bold = true},
-FloatBorder = {fg = "#68ADF4", bg = "#111A27"},
+FloatBorder = {fg = "#68ADF4", bg = "#182436"},
 TelescopeBorder = {link = "FloatBorder"},
 Function = {fg = "#215E99"},
 Identifier = {fg = "#68ADF4"},
 IncSearch = {bg = "#7B541A"},
 LineNr = {fg = "#426389"},
-NormalFloat = {bg = "#111A27"},
+NormalFloat = {bg = "#182436"},
 Number = {fg = "#D58DEC"},
 Operator = {fg = "#BED6FA"},
 PreProc = {fg = "#9723A9", bold = true},
@@ -63,13 +63,14 @@ Statement = {fg = "#215E99", bold = true},
 String = {fg = "#83B83B"},
 Substitute = {fg = "#F68895", bg = "#7B541A"},
 TelescopeMatching = {fg = "#68ADF4"},
-TelescopeMultiSelection = {fg = "#68ADF4", bg = "#1A2638"},
+TelescopeMultiSelection = {fg = "#68ADF4", bg = "#182436"},
 TelescopePromptPrefix = {fg = "#215E99"},
 Type = {fg = "#79B3AF", italic = true},
 Special = {link = "Type"},
 ["@diff.delta"] = {fg = "#40BAB4"},
 ["@diff.minus"] = {fg = "#B41B30"},
 ["@diff.plus"] = {fg = "#83B83B"},
+["@markup.heading"] = {fg = "#BED6FA", bold = true},
 ["@markup.heading.1"] = {fg = "#215E99", bold = true},
 ["@markup.heading.2"] = {fg = "#68ADF4", bold = true},
 ["@markup.heading.3"] = {fg = "#40BAB4", bold = true},
@@ -93,9 +94,12 @@ Special = {link = "Type"},
 }
 
 -- colorschemes generally want to do this
-vim.cmd("highlight clear")
-vim.cmd("set t_Co=256")
-vim.cmd("let g:colors_name='uniwa'")
+vim.cmd [[
+	highlight clear
+	set t_Co=256
+	set background=light
+	let g:colors_name='uniwa'
+]]
 
 -- apply highlight groups
 for group, attrs in pairs(colors) do

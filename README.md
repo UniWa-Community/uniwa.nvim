@@ -34,10 +34,10 @@ Default:
 
 ![Screenshot 2024-02-19 222940](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/ce489fc5-a414-4481-9220-6c4b92debacd)
 
-uniwa-light
+uniwa-paper
 ![Screenshot 2024-02-19 222946](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/b5257441-e2d8-46ef-9e21-d5560c5a0ade)
 
-uniwa-paper
+uniwa-light
 ![Screenshot 2024-02-19 222934](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/72b04f91-e2e0-4fea-8774-6a4447335ec3)
 
 uniwa-dark

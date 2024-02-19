@@ -1,10 +1,11 @@
+#SingleInstance
 ; TODO: auto generate screenshots for each variant
 ; manually build and install (wezterm too)
 ; also split appropriately like so:
 ;
 ;  +-------+--------+
 ;  |       |        |
-;  |       | htop   |
+;  |       |  htop  |
 ;  |       |        |
 ;  |  vim  +--------+
 ;  |       |        |
@@ -12,21 +13,32 @@
 ;  |       |        |
 ;  +----------------+
 ;
-; script now does for each <variant>:
-; themr <variant>
-; wait 500ms
-; vim ~/fisr.c
-; wait 500ms
-; Alt+l
-; htop
-; wait 100ms
-; Alt+j
-; ~/repos/color-scripts/color-scripts/bloks
-; Alt+h
-; wait 100ms
-; screenshot window
-; wait 1000ms
-; repeat
+F1::{
+	; script now does for each <variant>:
+	variants := ["dark", "light", "default", "paper"]
+	for variant in variants {
+		; themr <variant>
+		if variant = "default" {
+			Send " themr uniwa" . "`n"
+		} else {
+			Send " themr uniwa-" . variant . "`n"
+		}
+		Sleep 1500
+		Send " vim ~/fisr.c `n"
+		Sleep 1500
+		; screenshot window
+		Send "{PrintScreen}"
+		Sleep 1500
+		Send ":q{!}`n"
+		Sleep 1500
+		; repeat
+	}
+	Reload
+}
+
+F2::{
+	Reload
+}
 
 
 

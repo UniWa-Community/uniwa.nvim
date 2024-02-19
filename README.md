@@ -30,18 +30,20 @@ Grey:       `#9d9d88`
 
 # Variants
 
+
+
 Default:
 
-![Screenshot 2024-02-19 222940](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/ce489fc5-a414-4481-9220-6c4b92debacd)
+![Screenshot 2024-02-19 224600](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/f2d1a365-33a3-4467-af71-814d441fc702)
 
 uniwa-paper
-![Screenshot 2024-02-19 222946](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/b5257441-e2d8-46ef-9e21-d5560c5a0ade)
+![Screenshot 2024-02-19 224607](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/497439a7-5528-4ad5-b5a5-583006d003df)
 
 uniwa-light
-![Screenshot 2024-02-19 222934](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/72b04f91-e2e0-4fea-8774-6a4447335ec3)
+![Screenshot 2024-02-19 224554](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/81eee804-f808-489f-8cc7-221f72966794)
 
 uniwa-dark
-![Screenshot 2024-02-19 222928](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/3fa16250-edf9-4ff2-bc65-1ec559a9c84a)
+![Screenshot 2024-02-19 224548](https://github.com/uniwa-community/uniwa.nvim/assets/51170833/1f2d2fba-7177-4155-afdf-8dc460736c05)
 
 # Install
 

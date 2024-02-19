@@ -24,7 +24,7 @@ F1::{
 			Send " themr uniwa-" . variant . "`n"
 		}
 		Sleep 1500
-		Send " vim ~/fisr.c `n"
+		Send " vim ~/geepeetee.py `n"
 		Sleep 1500
 		; screenshot window
 		Send "{PrintScreen}"

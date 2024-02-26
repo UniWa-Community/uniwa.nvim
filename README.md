@@ -50,7 +50,7 @@ uniwa-dark
 ```lua
 -- with lazy
 {
-    'UniWa-Community/uniwa.nvim',
+    'uniwa-community/uniwa.nvim',
 }
 ```
 

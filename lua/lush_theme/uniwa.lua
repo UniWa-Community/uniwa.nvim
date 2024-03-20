@@ -171,7 +171,7 @@ local theme = lush(function(injected_functions)
 		-- Folded         { }, -- Line used for closed folds
 		-- FoldColumn     { }, -- 'foldcolumn'
 		-- SignColumn     { }, -- Column where |signs| are displayed
-		LineNr { fg = azure.de(30).da(40) }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNr       { fg = azure.de(30).da(40) }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		-- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
 		-- LineNrBelow    { }, -- Line number for when the 'relativenumber' option is set, below the cursor line
 		-- CursorLineNr   { }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
@@ -183,13 +183,13 @@ local theme = lush(function(injected_functions)
 		-- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
 		-- MoreMsg        { }, -- |more-prompt|
 		-- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-		Normal { fg = foreground, bg = background }, -- Normal text
-		NormalFloat { bg = bg_contrast },    -- Normal text in floating windows.
-		FloatBorder { bg = NormalFloat.bg, fg = azure }, -- Border of floating windows.
+		Normal       { fg = foreground, bg = background }, -- Normal text
+		NormalFloat  { bg = bg_contrast },    -- Normal text in floating windows.
+		FloatBorder  { bg = NormalFloat.bg, fg = azure }, -- Border of floating windows.
 		-- FloatTitle     { }, -- Title of floating windows.
 		-- NormalNC       { }, -- normal text in non-current windows
-		-- Pmenu          { }, -- Popup menu: Normal item.
-		-- PmenuSel       { }, -- Popup menu: Selected item.
+		Pmenu          { Normal }, -- Popup menu: Normal item.
+		PmenuSel       { CursorLine }, -- Popup menu: Selected item.
 		-- PmenuKind      { }, -- Popup menu: Normal item "kind"
 		-- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
 		-- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
@@ -208,9 +208,9 @@ local theme = lush(function(injected_functions)
 		-- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
 		-- StatusLine     { }, -- Status line of current window
 		-- StatusLineNC   { }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-		-- TabLine        { }, -- Tab pages line, not active tab page label
-		-- TabLineFill    { }, -- Tab pages line, where there are no labels
-		-- TabLineSel     { }, -- Tab pages line, active tab page label
+		TabLine        { Normal }, -- Tab pages line, not active tab page label
+		TabLineFill    { bg = background }, -- Tab pages line, where there are no labels
+		TabLineSel     { bg = azure, fg = background }, -- Tab pages line, active tab page label
 		-- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
 		-- Visual         { }, -- Visual mode selection
 		-- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
